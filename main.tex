@@ -1,126 +1,71 @@
-% from Andrew Blanks
-\documentclass[11pt,a4]{article}
-\usepackage[top=0.85in,left=1in,footskip=0.75in,marginparwidth=2in]{geometry}
+% MAIN.TEX - University of Warwick, Integrated Science, Report
+% Template by Andrew Blanks and Stephen Royle
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% use Unicode characters - try changing the option if you run into troubles with special characters (e.g. umlauts)
-\usepackage[utf8]{inputenc}
+% PREAMBLE
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc} % text encoding, for special characters e.g. umlauts use \"
+\usepackage{amsmath} % for equations
+\usepackage{amsfonts} % for equations
+\usepackage{amssymb} % for equations
+\usepackage{graphicx} % for figures
+\usepackage{wrapfig} % for figures
+\usepackage[final]{pdfpages}
+\usepackage[margin=2cm]{geometry}
+\usepackage{authblk}
+\usepackage[authoryear,round]{natbib}
+\usepackage{siunitx} % for correct units e.g. 10 nm is \SI{10}{\nano\metre}
+\DeclareSIUnit\Molar{\textsc{m}} % formats Molar concentrations e.g. \SI{1}{\micro\Molar}
+\usepackage[version=4]{mhchem} % for chemical entities e.g. \ce{FeSO4}
+\usepackage[font=small,labelfont=bf]{caption} % caption/legends for figures
+\usepackage{parskip} % controls gap between paragraph and previous
+\usepackage{titlesec} % controls titles and sections
+\usepackage{lipsum}
+\usepackage[hidelinks]{hyperref} % makes links clickable
 
-% clean citations
-\usepackage{cite}
-\usepackage{mathtools}
-% hyperref makes references clicky. use \url{www.example.com} or \href{www.example.com}{description} to add a clicky url
-\usepackage{nameref,hyperref}
-\usepackage{enumerate}
-% line numbers
-\usepackage[right]{lineno}
+% provide details of your project report
+\title{Declarative title of my report}
+\author{Alex Smith\thanks{Corresponding author: a.smith@warwick.ac.uk}}
+\affil{Integrated Science, University of Warwick, Gibbet Hill Road, Coventry, CV4 7AL, UK}
+\date{} % add the date here
 
-% improves typesetting in LaTeX
-\usepackage{microtype}
-\DisableLigatures[f]{encoding = *, family = * }
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% text layout - change as needed
-\raggedright
-\setlength{\parindent}{0.5cm}
-\textwidth 6.25in 
-\textheight 8.75in
-
-% use adjustwidth environment to exceed text width (see examples in text)
-\usepackage{changepage}
-
-% adjust caption style
-\usepackage[aboveskip=1pt,labelfont=bf,labelsep=period,singlelinecheck=off]{caption}
-
-% remove brackets from references
-\makeatletter
-\renewcommand{\@biblabel}[1]{\quad#1.}
-\makeatother
-
-% headrule, footrule and page numbers
-\usepackage{lastpage,fancyhdr,graphicx}
-\usepackage{epstopdf}
-\pagestyle{myheadings}
-\pagestyle{fancy}
-\fancyhf{}
-\rfoot{\thepage/\pageref{LastPage}}
-\renewcommand{\footrule}{\hrule height 2pt \vspace{2mm}}
-\fancyheadoffset[L]{2.25in}
-\fancyfootoffset[L]{2.25in}
-
-% use \textcolor{color}{text} for colored text (e.g. highlight to-do areas)
-\usepackage{color}
-
-% define custom colors (this one is for figure captions)
-\definecolor{Gray}{gray}{.25}
-
-% this is required to include graphics
-\usepackage{graphicx}
-
-% use if you want to put caption to the side of the figure - see example in text
-\usepackage{sidecap}
-
-% use for have text wrap around figures
-\usepackage{wrapfig}
-\usepackage[pscoord]{eso-pic}
-\usepackage[fulladjust]{marginnote}
-\reversemarginpar
-
-\usepackage{float}
-% document begins here
 \begin{document}
-\vspace*{0.35in}
 
-% title goes here:
-\begin{center}
-{\Huge
-\textbf
-\newline{Title-Here}
-}
-\newline
-\newline
+\maketitle
 
-% authors go here:
-\Large
-Joe Blogs\textsuperscript{1§},
-Jane Blogs\textsuperscript{1§},
-
-\end{center}
-
-\begin{flushleft}
-\bigskip
-{1.} Address goes here\\
-\bigskip
-*Corresponding author E-mail: \\
-§Joint first author
-\end{flushleft}
-\newpage
-\section*{Abstract}
-\begin{justify}
-Abstract text goes here
-\end{justify}
-
-% now start line numbers
-\linenumbers
+\begin{abstract}
+Abstract of the paper goes here.
+\lipsum[1]
+\end{abstract}
 
 % the * after section prevents numbering
 \section*{Introduction}
-\begin{justify}
-Introduction text goes here
 
-\end{justify}
+Introduction text goes here.
+\lipsum{2-6}
+Text is added like this.
+This is a reference to a published paper \citep{watson_molecular_1953}.
+We can cite other things too \citep{tipton_complexities_2019,zheng_genome_2011,alberts_molecular_2002}
 
 \section*{Materials and Methods}
 
 \subsection*{Materials} 
- Materials text goes here
+Materials text goes here.
+\lipsum[3]
  
 \subsection*{Method1}  
-Method 1 text goes here
+Method 1 text goes here.
+\lipsum[3]
 
 \subsection*{Method2}
-Method 2 text goes here
+Method 2 text goes here.
+\lipsum[3]
 
 \subsection*{Data analysis}
-Data analysis section goes here
+Data analysis section goes here.
+\lipsum[3]
 
 
 
@@ -139,36 +84,32 @@ Data analysis section goes here
 \end{figure}
 
 \section*{Results}
-\begin{justify}
+
 Results text goes here 
 % reference figure 1 by
 (Fig.~\ref{fig:1}).
 \subsection*{Blah}
 Subsection of results Blah goes here
-\end{justify}
+
 
 \section*{Discussion}
-\begin{justify}
+
 Text of discussion goes here
-\end{justify}
+\lipsum{12-15}
 
 
 \section*{Conclusion}
-\begin{justify}
-Conclusion text goes here
 
-\end{justify}
+Conclusion text goes here.
+\lipsum[5]
+
 
 \section*{Acknowledgments}
 
-Acknowledgments go here
+Acknowledgments go here.
 
-\nolinenumbers
-
-%This is where your bibliography is generated. Make sure that your .bib file is actually called library.bib
-\bibliography{Blah}
-
-%This defines the bibliographies style. Search online for a list of available styles.
-\bibliographystyle{abbrv}
+\newpage
+\bibliographystyle{modabbrv}
+\bibliography{refs.bib}
 
 \end{document}
