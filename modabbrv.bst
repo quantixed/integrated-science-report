@@ -44,6 +44,7 @@
  % Works with identical authors and year are further sorted by
  %   citation key, to preserve any natural sequence.
  % RoyleLab Mod: Uncomment lines 1312-21 and 1328-9 for appearance sort
+ % RoyleLab Mod: This is a modification to give J Cell Sci formatting of references
 ENTRY
   { address
     author
@@ -213,13 +214,20 @@ FUNCTION {emphasize}
 
 INTEGERS { nameptr namesleft numnames }
 
+FUNCTION {bolden}
+{ duplicate$ empty$
+    { pop$ "" }
+    { "\textbf{" swap$ * "}" * }
+  if$
+}
+
 FUNCTION {format.names}
 { 's :=
   #1 'nameptr :=
   s num.names$ 'numnames :=
   numnames 'namesleft :=
     { namesleft #0 > }
-    { s nameptr "{vv~}{ll}{, f.}{, jj}" format.name$ 't :=
+    { s nameptr "{vv~}{ll}{, f.}{, jj}" format.name$ bolden 't :=
       nameptr #1 >
         { namesleft #1 >
             { ", " * t * }
@@ -335,6 +343,45 @@ FUNCTION {format.full.names}
   while$
 }
 
+FUNCTION {format.org.or.pub}
+{ 't :=
+  ""
+  year empty$
+    { "empty year in " cite$ * warning$ }
+    'skip$
+  if$
+  address empty$ t empty$ and
+  year empty$ and
+    'skip$
+    {
+      add.blank "(" *
+      t empty$
+        { address "address" bibinfo.check *
+        }
+        { t *
+          address empty$
+            'skip$
+            { ", " * address "address" bibinfo.check * }
+          if$
+        }
+      if$
+      year empty$
+        'skip$
+        { t empty$ address empty$ and
+            'skip$
+            { 
+              ", " *                 %% originally: ", " swap$ * *
+            }
+          if$
+          year "year" bibinfo.check
+          *
+        }
+      if$
+      ")" *
+    }
+  if$
+}
+
 FUNCTION {author.editor.full}
 { author empty$
     { editor empty$
@@ -420,13 +467,9 @@ FUNCTION {format.date}
        pop$ "" }
     'skip$
   if$
-  month empty$
-    'skip$
-    { month
-      " " * swap$ *
-    }
-  if$
+  "(" swap$ *
   extra.label *
+   ")" * 
 }
 
 FUNCTION {format.btitle}
@@ -536,7 +579,7 @@ FUNCTION {format.vol.num.pages}
 { volume field.or.null
   number empty$
     'skip$
-    { "\penalty0 (" number * ")" * *
+    { bolden ~*
       volume empty$
         { "there's a number but no volume in " cite$ * warning$ }
         'skip$
@@ -547,7 +590,7 @@ FUNCTION {format.vol.num.pages}
     'skip$
     { duplicate$ empty$
         { pop$ format.pages }
-        { ":\penalty0 " * pages n.dashify * }
+        { ",~" * pages n.dashify * }
       if$
     }
   if$
@@ -557,7 +600,7 @@ FUNCTION {format.vol.num.eid}
 { volume field.or.null
   number empty$
     'skip$
-    { "\penalty0 (" number * ")" * *
+    { bolden ~*
       volume empty$
         { "there's a number but no volume in " cite$ * warning$ }
         'skip$
@@ -568,7 +611,7 @@ FUNCTION {format.vol.num.eid}
     'skip$
     { duplicate$ empty$
         { pop$ format.eid }
-        { ":\penalty0 " * eid * }
+        { ",~ " * eid * }
       if$
     }
   if$
@@ -696,20 +739,26 @@ FUNCTION {format.incoll.inproc.crossref}
   " \citet{" * crossref * "}" *
 }
 
+FUNCTION {add.blank}
+{  " " * before.all 'output.state :=
+}
+
 FUNCTION {article}
 { output.bibitem
   format.authors "author" output.check
   author format.key output
+  after.sentence 'output.state :=
+  format.date "year" output.check
   new.block
   format.title "title" output.check
   new.block
   crossref missing$
     { journal emphasize "journal" output.check
+      add.blank
       eid empty$
         { format.vol.num.pages output }
         { format.vol.num.eid output }
       if$
-      format.date "year" output.check
     }
     { format.article.crossref output.nonnull
       eid empty$
@@ -739,6 +788,7 @@ FUNCTION {book}
       if$
     }
   if$
+  format.date "year" output.check
   new.block
   format.btitle "title" output.check
   crossref missing$
@@ -754,7 +804,6 @@ FUNCTION {book}
     }
   if$
   format.edition output
-  format.date "year" output.check
   format.isbn output
   format.doi output
   format.url output
@@ -794,6 +843,7 @@ FUNCTION {inbook}
       if$
     }
   if$
+  format.date "year" output.check
   new.block
   format.btitle "title" output.check
   crossref missing$
@@ -811,7 +861,6 @@ FUNCTION {inbook}
     }
   if$
   format.edition output
-  format.date "year" output.check
   format.isbn output
   format.doi output
   format.url output
@@ -912,12 +961,13 @@ FUNCTION {mastersthesis}
   format.authors "author" output.check
   author format.key output
   new.block
+  format.date "year" output.check
+  new.block
   format.title "title" output.check
   new.block
   "Master's thesis" format.thesis.type output.nonnull
   school "school" output.check
   address output
-  format.date "year" output.check
   format.url output
   new.block
   note output
@@ -928,11 +978,11 @@ FUNCTION {misc}
 { output.bibitem
   format.authors output
   author format.key output
+  format.date output
   title howpublished new.block.checkb
   format.title output
   howpublished new.block.checka
   howpublished output
-  format.date output
   format.issn output
   format.url output
   new.block
@@ -946,12 +996,13 @@ FUNCTION {phdthesis}
   format.authors "author" output.check
   author format.key output
   new.block
+  format.date "year" output.check
+  new.block
   format.btitle "title" output.check
   new.block
   "PhD thesis" format.thesis.type output.nonnull
   school "school" output.check
   address output
-  format.date "year" output.check
   format.url output
   new.block
   note output
@@ -984,12 +1035,13 @@ FUNCTION {techreport}
   format.authors "author" output.check
   author format.key output
   new.block
+  format.date "year" output.check
+  new.block
   format.title "title" output.check
   new.block
   format.tr.number output.nonnull
   institution "institution" output.check
   address output
-  format.date "year" output.check
   format.url output
   new.block
   note output
@@ -1325,8 +1377,29 @@ FUNCTION {presort}
   label sortify
   "    "
   *
-%  seq.num #1 + 'seq.num :=
-%  seq.num int.to.fix
+  type$ "book" =
+  type$ "inbook" =
+  or
+    'author.editor.sort
+    { type$ "proceedings" =
+        'editor.organization.sort
+        { type$ "manual" =
+            'author.organization.sort
+            'author.sort
+          if$
+        }
+      if$
+    }
+  if$
+  "    "
+  *
+  year field.or.null sortify
+  *
+  "    "
+  *
+  cite$
+  *
+  #1 entry.max$ substring$
   'sort.label :=
   sort.label *
   #1 entry.max$ substring$

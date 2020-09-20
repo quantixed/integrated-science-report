@@ -11,16 +11,17 @@
 \usepackage{graphicx} % for figures
 \usepackage{wrapfig} % for figures
 \usepackage[final]{pdfpages}
-\usepackage[margin=2cm]{geometry}
-\usepackage{authblk}
-\usepackage[authoryear,round]{natbib}
+\usepackage[margin=2cm]{geometry} % sorts out page margins
+\usepackage{authblk} % the author field
+\usepackage[authoryear,round]{natbib} % referencing
+\bibliographystyle{modabbrv} % referencing
 \usepackage{siunitx} % for correct units e.g. 10 nm is \SI{10}{\nano\metre}
 \DeclareSIUnit\Molar{\textsc{m}} % formats Molar concentrations e.g. \SI{1}{\micro\Molar}
 \usepackage[version=4]{mhchem} % for chemical entities e.g. \ce{FeSO4}
 \usepackage[font=small,labelfont=bf]{caption} % caption/legends for figures
 \usepackage{parskip} % controls gap between paragraph and previous
 \usepackage{titlesec} % controls titles and sections
-\usepackage{lipsum}
+\usepackage{lipsum} % dummy text for this template
 \usepackage[hidelinks]{hyperref} % makes links clickable
 
 % provide details of your project report
@@ -45,6 +46,7 @@ Abstract of the paper goes here.
 
 Introduction text goes here.
 \lipsum{2-6}
+
 Text is added like this.
 This is a reference to a published paper \citep{watson_molecular_1953}.
 We can cite other things too \citep{tipton_complexities_2019,zheng_genome_2011,alberts_molecular_2002}
@@ -63,34 +65,65 @@ Method 1 text goes here.
 Method 2 text goes here.
 \lipsum[3]
 
+Equations can be display in-line like this $e = mc^2$.
+Alternatively, equations can be shown and referenced, like this.
+
+\begin{equation}
+    \int^{r_2}_0 F(r,\varphi){\rm d}r\,{\rm d}\varphi = [\sigma r_2/(2\mu_0)] \int^{\infty}_0\exp(-\lambda|z_j-z_i|)\lambda^{-1}J_1 (\lambda r_2)J_0 (\lambda r_i\,\lambda {\rm d}\lambda)
+    \label{eq:eq1}
+\end{equation}
+
 \subsection*{Data analysis}
 Data analysis section goes here.
 \lipsum[3]
-
-
 
 
 % figure goes here but can be moved to wherever it looks best
 \begin{figure}
      \centering
      \includegraphics[width=10cm]{Fig_1}
-        \caption{
-                \textbf{A}:~Blah
-                \textbf{B}:~Blah
-                \textbf{C}:~Blah
-                \textbf{D}:~Blah
+        \caption{\textbf{Title of the figure goes here.}\\
+                \textbf{A}:~If a figure has many panels.
+                \textbf{B}:~You can refer to them.
+                \textbf{C}:~Like this.
         }
         \label{fig:1}
 \end{figure}
 
 \section*{Results}
 
-Results text goes here 
+Results text goes here. 
 % reference figure 1 by
-(Fig.~\ref{fig:1}).
-\subsection*{Blah}
-Subsection of results Blah goes here
+Here is my result (Fig.~\ref{fig:1}).
+\lipsum[19]
 
+\subsection*{Subsection of Results section 1}
+Subsection of results goes here.
+\lipsum[20]
+
+Adding a table can be done like this.
+
+\begin{table}[!htp]
+    \centering
+    \begin{tabular}{c | c c c c}
+    Column head 1 & Column head 2 & Column head 3 & Column head 4 & Column head 5\\
+    \hline
+    Table body & Table body & Table body  & Table body  & Table body  \\
+    Table body & Table body & Table body  & Table body  & Table body  \\
+    Table body & Table body & Table body  & Table body  & Table body  \\
+    Table body & Table body & Table body  & Table body  & Table body  \\
+    Table body & Table body & Table body  & Table body  & Table body  \\
+    \end{tabular}
+    \caption{
+        \textbf{A title for the table}.\\
+        A short ``legend'' is possible like this.}
+    \label{table:example}
+\end{table}
+
+
+\subsection*{Subsection of Results section 2}
+Subsection of results goes here.
+\lipsum[21]
 
 \section*{Discussion}
 
@@ -109,7 +142,7 @@ Conclusion text goes here.
 Acknowledgments go here.
 
 \newpage
-\bibliographystyle{modabbrv}
-\bibliography{refs.bib}
+
+\bibliography{refs}
 
 \end{document}
