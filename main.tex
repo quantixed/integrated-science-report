@@ -1,5 +1,12 @@
 % MAIN.TEX - University of Warwick, Integrated Science, Report
 % Template by Andrew Blanks and Stephen Royle
+% The idea is to write a report, based on an eLife manuscript
+% To use this template:
+%  1. delete any lines that contain \lipsum or other instructions
+%  2. type your report!
+%  3. Upload your own refs.bib file (the output from Zotero or other reference manager)
+%  4. Upload your figures (png, jpeg or pdf is fine, avoid large tiff files)
+% 2020-09-21
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % PREAMBLE
@@ -24,9 +31,13 @@
 \usepackage{lipsum} % dummy text for this template
 \usepackage[hidelinks]{hyperref} % makes links clickable
 
-% provide details of your project report
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% provide details of your project report in this part
 \title{Declarative title of my report}
+% The title should ideally be fewer than 120 characters, with a clear indication of the biological system under investigation (if appropriate), and should avoid abbreviations and unfamiliar acronyms if possible
 \author{Alex Smith\thanks{Corresponding author: a.smith@warwick.ac.uk}}
+% Use your STUDENT NUMBER here and not your name, include any other co-authors and addresses
 \affil{Integrated Science, University of Warwick, Gibbet Hill Road, Coventry, CV4 7AL, UK}
 \date{} % add the date here
 
@@ -37,11 +48,14 @@
 \maketitle
 
 \begin{abstract}
+% The abstract should be fewer than 150 words and should not contain subheadings. It should provide a clear, measured, and concise summary of the work. If the biological system (species names or broader taxonomic groups if appropriate) is not mentioned in the title, it must be included in the abstract.
 Abstract of the paper goes here.
 \lipsum[1]
 \end{abstract}
 
-% the * after section prevents numbering
+% After the abstract comes the main text.
+% You should split your main text into separate sections: Introduction, Results & Discussion and  Materials and Methods. The exact section heading you use for each section is up to you!
+% the * after section or subsection prevents numbering in LaTeX
 \section*{Introduction}
 
 Introduction text goes here.
@@ -50,33 +64,6 @@ Introduction text goes here.
 Text is added like this.
 This is a reference to a published paper \citep{watson_molecular_1953}.
 We can cite other things too \citep{tipton_complexities_2019,zheng_genome_2011,alberts_molecular_2002}
-
-\section*{Materials and Methods}
-
-\subsection*{Materials} 
-Materials text goes here.
-\lipsum[3]
- 
-\subsection*{Method1}  
-Method 1 text goes here.
-\lipsum[3]
-
-\subsection*{Method2}
-Method 2 text goes here.
-\lipsum[3]
-
-Equations can be display in-line like this $e = mc^2$.
-Alternatively, equations can be shown and referenced, like this.
-
-\begin{equation}
-    \int^{r_2}_0 F(r,\varphi){\rm d}r\,{\rm d}\varphi = [\sigma r_2/(2\mu_0)] \int^{\infty}_0\exp(-\lambda|z_j-z_i|)\lambda^{-1}J_1 (\lambda r_2)J_0 (\lambda r_i\,\lambda {\rm d}\lambda)
-    \label{eq:eq1}
-\end{equation}
-
-\subsection*{Data analysis}
-Data analysis section goes here.
-\lipsum[3]
-
 
 % figure goes here but can be moved to wherever it looks best
 \begin{figure}
@@ -136,9 +123,36 @@ Text of discussion goes here
 Conclusion text goes here.
 \lipsum[5]
 
+\section*{Materials and Methods}
+
+\subsection*{Materials} 
+Materials text goes here.
+\lipsum[3]
+ 
+\subsection*{Method1}  
+Method 1 text goes here.
+\lipsum[3]
+
+\subsection*{Method2}
+Method 2 text goes here.
+\lipsum[3]
+
+Equations can be display in-line like this $e = mc^2$.
+Alternatively, equations can be shown and referenced, like this.
+
+\begin{equation}
+    \int^{r_2}_0 F(r,\varphi){\rm d}r\,{\rm d}\varphi = [\sigma r_2/(2\mu_0)] \int^{\infty}_0\exp(-\lambda|z_j-z_i|)\lambda^{-1}J_1 (\lambda r_2)J_0 (\lambda r_i\,\lambda {\rm d}\lambda)
+    \label{eq:eq1}
+\end{equation}
+
+As you can see, from Equation \ref{eq:eq1} it is possible to write nice equations with \LaTeX.
+
+\subsection*{Data analysis}
+Data analysis section goes here.
+\lipsum[3]
 
 \section*{Acknowledgments}
-
+% You can thank anyone who helped your work here.
 Acknowledgments go here.
 
 \newpage
